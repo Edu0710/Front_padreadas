@@ -293,7 +293,7 @@ def main(ruta_csv,ruta_buzon,ruta_imagen_bg,ruta_imagen_sd):
         
         st.button('Volver', on_click= set_stage, args = ['Inicio'] )
 
-        st.title("Relene los datos de la Padreada")
+        st.title("Rellene los datos de la Padreada")
         Faltoso = st.selectbox("Faltoso:", st.session_state.lst_gente)
         Víctima = st.selectbox("Víctima:", st.session_state.lst_gente)
         Padreada = st.text_input("Padreada : ")
