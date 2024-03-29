@@ -37,7 +37,7 @@ def set_png_as_page_bg(imagen_bg, imagen_sd):
 def insert_padreada(Fecha, Faltoso, Víctima, Padreada, Puntos, historico_padreadas):
     
     with st.spinner ( 'Insertando Padreada'):
-        time.sleep(2)
+        time.sleep(1.2)
         nueva_frase = pd.DataFrame()
         nueva_frase['Fecha']         = [Fecha]
         nueva_frase['Faltoso']         = [Faltoso]
@@ -56,7 +56,7 @@ def insert_padreada(Fecha, Faltoso, Víctima, Padreada, Puntos, historico_padrea
 def insert_padreada_buzon(Fecha, Faltoso, Víctima, Padreada, Puntos,Solicitante, buzon_padreadas):
     
     with st.spinner ( 'Añadiendo Padreada en el buzón'):
-        time.sleep(2)
+        time.sleep(1.2)
         nueva_frase = pd.DataFrame()
         nueva_frase['Fecha']         = [Fecha]
         nueva_frase['Faltoso']         = [Faltoso]
@@ -65,7 +65,7 @@ def insert_padreada_buzon(Fecha, Faltoso, Víctima, Padreada, Puntos,Solicitante
         nueva_frase['Puntos']  = [Puntos]
         nueva_frase['Solicitante']  = [Solicitante]
         buzon_padreadas = pd.concat([buzon_padreadas,nueva_frase])
-        buzon_padreadas.to_csv('Padreadas_buzon.csv',sep = ',')
+        buzon_padreadas.to_csv('Padreadas_buzon.csv',sep = ',', index = False)
         
     st.success ("Padreada añadida al buzón con éxito")
 
@@ -74,7 +74,7 @@ def insert_padreada_buzon(Fecha, Faltoso, Víctima, Padreada, Puntos,Solicitante
 def delete_padreada(historico_padreadas, index):
     
     with st.spinner ( 'Eliminando Padreada'):
-        time.sleep(2)
+        time.sleep(1.2)
         
         historico_padreadas.drop( index , inplace = True)
         historico_padreadas.to_csv('Padreadas.csv',sep = ',')
@@ -88,7 +88,7 @@ def delete_padreada(historico_padreadas, index):
 def modify_padreada(Fecha, Faltoso, Víctima, Padreada, Puntos, historico_padreadas, index):
     
     with st.spinner ( 'Modificando Padreada'):
-        time.sleep(2)
+        time.sleep(1.2)
         frase_modificada = pd.DataFrame()
         frase_modificada['Fecha']         = [Fecha]
         frase_modificada['Faltoso']         = [Faltoso]
@@ -110,9 +110,6 @@ def show_top(historico_padreadas) :
     
     padreador_top = historico_padreadas.groupby(['Faltoso']).sum('Puntos')
     padreado_top = historico_padreadas.groupby(['Víctima']).sum('Puntos')
-    
-    # padreador_top = padreador_top.to_frame()
-    # padreado_top = padreado_top.to_frame()
 
     padreador_top.reset_index(drop = False, inplace = True)
     padreado_top.reset_index(drop = False, inplace = True)
@@ -158,16 +155,17 @@ def hist_padres(historico_padreadas):
     return
 def update_buzon(buzon_relleno):
     
+    aux_cols = st.session_state.buzon_padreadas.columns
     st.session_state.buzon_padreadas = buzon_relleno[(buzon_relleno['Denegada ?'] == False) 
                                                      & (buzon_relleno['Aceptada ?'] == False)]
+    st.session_state.buzon_padreadas = st.session_state.buzon_padreadas[aux_cols]
     
     buzon_insert = buzon_relleno[buzon_relleno['Aceptada ?'] == True]
     buzon_insert = buzon_insert[st.session_state.historico_padreadas.columns]
     st.session_state.historico_padreadas  =pd.concat([st.session_state.historico_padreadas,
                                                       buzon_insert])
-    
     st.session_state.historico_padreadas.to_csv('Padreadas.csv',sep = ',')
-    st.session_state.buzon_padreadas.to_csv('Padreadas_buzon.csv',sep = ',')
+    st.session_state.buzon_padreadas.to_csv('Padreadas_buzon.csv',sep = ',', index = False)
     st.success('Buzón actualizado con éxito')
     set_stage('Administrar Padreadas')
     return 
@@ -266,7 +264,7 @@ def main(ruta_csv,ruta_buzon,ruta_imagen_bg,ruta_imagen_sd):
         st.button( 'Insertar Padreada', on_click= set_stage, args = ['Insertar_Padreada'])
         st.button( 'Eliminar Padreada',      on_click= set_stage, args = ['Eliminar_Padreada'])
         st.button( 'Modificar Padreada',     on_click= set_stage, args = ['Modificar_Padreada'])
-        st.button( f'Buzón Padreadas ({st.session_state.buzon_padreadas.size})',
+        st.button( f'Buzón Padreadas ({st.session_state.buzon_padreadas.shape[0]})',
                   on_click= set_stage, args = ['Aprobar_Padreadas'])
 
         st.button('Volver', on_click= set_stage, args = ['Inicio'] )
