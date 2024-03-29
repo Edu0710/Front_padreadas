@@ -217,7 +217,7 @@ def main(ruta_csv,ruta_buzon,ruta_imagen_bg,ruta_imagen_sd):
     
         st.sidebar.header('¿Qué deseas hacer?')
         st.button('Ver histórico Padreadas', on_click = set_stage, args = ['Historico'])
-        st.button('Solicitar Padreada', on_click = set_stage, args = ['Solicitar'])
+        st.button('Añadir Padreada al buzón', on_click = set_stage, args = ['Solicitar'])
         st.button( '¡Administrar Padreadas!', on_click = set_stage, args = ['Password'])
     if 'stage' not in st.session_state:
         
@@ -301,7 +301,7 @@ def main(ruta_csv,ruta_buzon,ruta_imagen_bg,ruta_imagen_sd):
         Fecha = st.date_input('Fecha de la Padreada')
         Solicitante = st.selectbox("Solicitante:", st.session_state.lst_gente)
         
-        st.button('Solicitar', on_click = insert_padreada_buzon, args= [Fecha,
+        st.button('Añadir Padreada', on_click = insert_padreada_buzon, args= [Fecha,
                         Faltoso,
                         Víctima,
                         Padreada,
