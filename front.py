@@ -167,7 +167,7 @@ def read_historico(ruta_csv):
     return historico_padreadas[['Fecha','Faltoso','Víctima','Padreada','Puntos']]
 
 def main(ruta_csv,ruta_imagen_bg,ruta_imagen_sd):
-    st.set_page_config( layout="wide", initial_sidebar_state="collapsed", theme="dark")
+    st.set_page_config( layout="wide")
 
     st.session_state.historico_padreadas = read_historico(ruta_csv)
     set_png_as_page_bg(ruta_imagen_bg, ruta_imagen_sd)
