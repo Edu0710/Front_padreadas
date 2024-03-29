@@ -50,7 +50,7 @@ def insert_padreada(Fecha, Faltoso, Víctima, Padreada, Puntos, historico_padrea
     
         historico_padreadas.to_csv('Padreadas.csv',sep = ',')
         
-    st.text ("Padreada insertada en la base de datos con éxito")
+    st.success ("Padreada insertada en la base de datos con éxito")
 
     return 
 
@@ -63,7 +63,7 @@ def delete_padreada(historico_padreadas, index):
         historico_padreadas.to_csv('Padreadas.csv',sep = ',')
         
     
-    st.text ("Padreada eliminada de la base de datos con éxitos")
+    st.success ("Padreada eliminada de la base de datos con éxito")
     set_stage('Eliminar_Padreada')
 
     return
@@ -85,7 +85,7 @@ def modify_padreada(Fecha, Faltoso, Víctima, Padreada, Puntos, historico_padrea
         
         historico_padreadas.to_csv('Padreadas.csv',sep = ',')
         
-        st.text ("Padreada modificada en la base de datos con éxito")
+        st.success ("Padreada modificada en la base de datos con éxito")
         
     return 
 
@@ -204,9 +204,19 @@ def main(ruta_csv,ruta_imagen_bg,ruta_imagen_sd):
         
     if st.session_state.stage == 'Historico':
         
-        # aux = st.session_state.historico_padreadas.set_index('Fecha')
+        st.markdown("""
+    <style>
+        section[data-testid="stSidebar"][aria-expanded="true"]{
+            display: none;
+        }
+    </style>
+    """, unsafe_allow_html=True)
+    
+        aux = st.session_state.historico_padreadas.set_index('Fecha')
         # Mostrar el DataFrame
-
+        st.dataframe(aux,
+                     width = 1700,
+                     height = 759)
 
         st.button('Inicio', on_click = set_stage, args = ['Inicio'])
         
@@ -330,9 +340,9 @@ def main(ruta_csv,ruta_imagen_bg,ruta_imagen_sd):
 
 if __name__ == "__main__":
     
-    ruta_csv = r"C:\Users\Eduardo\Downloads\Padreadas.csv"
+    ruta_csv = 'Padreadas.csv'
     ruta_imagen_bg = 'image_op_2.jpg'
-    ruta_imagen_sd = 'shelbydef.jpg'
+    ruta_imagen_sd = 'lebron.jpg'
 
 
     main(ruta_csv,ruta_imagen_bg, ruta_imagen_sd)
