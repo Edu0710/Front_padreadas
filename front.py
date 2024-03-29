@@ -253,7 +253,7 @@ def main(ruta_csv,ruta_buzon,ruta_imagen_bg,ruta_imagen_sd):
         
         usuario = st.text_input('Usuario :' , value = 'Notorious_aless99')
         contraseña = st.text_input('Contraseña :', type = 'password')
-        st.button('Continuar', on_click = set_stage_pass, args =['Administrar Padreadas', usuario,contraseña])
+        st.button('Acceder', on_click = set_stage_pass, args =['Administrar Padreadas', usuario,contraseña])
         st.button('Volver', on_click= set_stage, args = ['Inicio'] )
 
     if st.session_state.stage == 'Administrar Padreadas':
