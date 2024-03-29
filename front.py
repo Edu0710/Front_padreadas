@@ -204,6 +204,7 @@ def main(ruta_csv,ruta_imagen_bg,ruta_imagen_sd):
         
     if st.session_state.stage == 'Historico':
         
+        st.button('Inicio', on_click = set_stage, args = ['Inicio'])
         st.markdown("""
     <style>
         section[data-testid="stSidebar"][aria-expanded="true"]{
@@ -218,8 +219,6 @@ def main(ruta_csv,ruta_imagen_bg,ruta_imagen_sd):
                      width = 1700,
                      height = 759)
 
-        st.button('Inicio', on_click = set_stage, args = ['Inicio'])
-        
     if st.session_state.stage == 'Password':
         
         usuario = st.text_input('Usuario :' , value = 'Notorious_aless99')
