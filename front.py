@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 import time 
@@ -417,6 +416,5 @@ if __name__ == "__main__":
     ruta_buzon = 'Padreadas_buzon.csv'
     ruta_imagen_bg = 'image_op_2.jpg'
     ruta_imagen_sd = 'lebron.jpg'
-
-
+    
     main(ruta_csv,ruta_buzon,ruta_imagen_bg, ruta_imagen_sd)
