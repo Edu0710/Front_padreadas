@@ -54,6 +54,24 @@ def insert_padreada(Fecha, Faltoso, Víctima, Padreada, Puntos, historico_padrea
 
     return 
 
+def insert_padreada_buzon(Fecha, Faltoso, Víctima, Padreada, Puntos,Solicitante, buzon_padreadas):
+    
+    with st.spinner ( 'Añadiendo Padreada en el buzón'):
+        time.sleep(2)
+        nueva_frase = pd.DataFrame()
+        nueva_frase['Fecha']         = [Fecha]
+        nueva_frase['Faltoso']         = [Faltoso]
+        nueva_frase['Víctima']       = [Víctima]
+        nueva_frase['Padreada']      = [Padreada]
+        nueva_frase['Puntos']  = [Puntos]
+        nueva_frase['Solicitante']  = [Solicitante]
+        buzon_padreadas = pd.concat([buzon_padreadas,nueva_frase])
+        buzon_padreadas.to_csv('Padreadas_buzon.csv',sep = ',')
+        
+    st.success ("Padreada añadida al buzón con éxito")
+
+    return 
+
 def delete_padreada(historico_padreadas, index):
     
     with st.spinner ( 'Eliminando Padreada'):
@@ -139,7 +157,21 @@ def hist_padres(historico_padreadas):
     st.bar_chart(padreadores, color = "#663399"  )
     
     return
-
+def update_buzon(buzon_relleno):
+    
+    st.session_state.buzon_padreadas = buzon_relleno[(buzon_relleno['Denegada ?'] == False) 
+                                                     & (buzon_relleno['Aceptada ?'] == False)]
+    
+    buzon_insert = buzon_relleno[buzon_relleno['Aceptada ?'] == True]
+    buzon_insert = buzon_insert[st.session_state.historico_padreadas.columns]
+    st.session_state.historico_padreadas  =pd.concat([st.session_state.historico_padreadas,
+                                                      buzon_insert])
+    
+    st.session_state.historico_padreadas.to_csv('Padreadas.csv',sep = ',')
+    st.session_state.buzon_padreadas.to_csv('Padreadas_buzon.csv',sep = ',')
+    st.success('Buzón actualizado con éxito')
+    set_stage('Administrar Padreadas')
+    return 
 def set_stage(stage):
     
     
@@ -149,7 +181,6 @@ def set_stage(stage):
 def set_stage_pass(stage, usuario, contraseña):
     
     if usuario =='Notorious_aless99' and contraseña ==st.secrets['Pass']:
-    
     
         st.session_state.stage = stage
     else:
@@ -166,10 +197,11 @@ def read_historico(ruta_csv):
     
     return historico_padreadas[['Fecha','Faltoso','Víctima','Padreada','Puntos']]
 
-def main(ruta_csv,ruta_imagen_bg,ruta_imagen_sd):
+def main(ruta_csv,ruta_buzon,ruta_imagen_bg,ruta_imagen_sd):
     st.set_page_config( layout="wide")
 
     st.session_state.historico_padreadas = read_historico(ruta_csv)
+    st.session_state.buzon_padreadas = pd.read_csv(ruta_buzon, sep = ',')
     set_png_as_page_bg(ruta_imagen_bg, ruta_imagen_sd)
 
 
@@ -188,6 +220,7 @@ def main(ruta_csv,ruta_imagen_bg,ruta_imagen_sd):
     
         st.sidebar.header('¿Qué deseas hacer?')
         st.button('Ver histórico Padreadas', on_click = set_stage, args = ['Historico'])
+        st.button('Solicitar Padreada', on_click = set_stage, args = ['Solicitar'])
         st.button( '¡Administrar Padreadas!', on_click = set_stage, args = ['Password'])
     if 'stage' not in st.session_state:
         
@@ -204,7 +237,7 @@ def main(ruta_csv,ruta_imagen_bg,ruta_imagen_sd):
         
     if st.session_state.stage == 'Historico':
         
-        st.button('Inicio', on_click = set_stage, args = ['Inicio'])
+        st.button('Volver', on_click = set_stage, args = ['Inicio'])
         st.markdown("""
     <style>
         section[data-testid="stSidebar"][aria-expanded="true"]{
@@ -224,21 +257,26 @@ def main(ruta_csv,ruta_imagen_bg,ruta_imagen_sd):
         usuario = st.text_input('Usuario :' , value = 'Notorious_aless99')
         contraseña = st.text_input('Contraseña :', type = 'password')
         st.button('Continuar', on_click = set_stage_pass, args =['Administrar Padreadas', usuario,contraseña])
-        st.button('Inicio', on_click= set_stage, args = ['Inicio'] )
+        st.button('Volver', on_click= set_stage, args = ['Inicio'] )
 
     if st.session_state.stage == 'Administrar Padreadas':
         
+        
         st.title("Administrador de Padreadas")
         st.markdown("<h2 style='color:#ffffff;font-weight:bold;font-size:28px;'>¿Qué desea hacer su majestad ADMINISTRADOR?</h2>", unsafe_allow_html=True)
-        
         st.button( 'Insertar Padreada', on_click= set_stage, args = ['Insertar_Padreada'])
         st.button( 'Eliminar Padreada',      on_click= set_stage, args = ['Eliminar_Padreada'])
         st.button( 'Modificar Padreada',     on_click= set_stage, args = ['Modificar_Padreada'])
-        st.button('Inicio', on_click= set_stage, args = ['Inicio'] )
+        st.button( f'Buzón Padreadas ({st.session_state.buzon_padreadas.size})',
+                  on_click= set_stage, args = ['Aprobar_Padreadas'])
 
+        st.button('Volver', on_click= set_stage, args = ['Inicio'] )
+        
 
     if st.session_state.stage == 'Insertar_Padreada':
         
+        st.button('Volver', on_click= set_stage, args = ['Administrar Padreadas'] )
+
         st.title("Insertar Padreadas")
         Faltoso = st.selectbox("Faltoso:", st.session_state.lst_gente)
         Víctima = st.selectbox("Víctima:", st.session_state.lst_gente)
@@ -253,10 +291,32 @@ def main(ruta_csv,ruta_imagen_bg,ruta_imagen_sd):
                         Puntos,
                         st.session_state.historico_padreadas])
 
-        st.button('Inicio', on_click= set_stage, args = ['Inicio'] )
+        
+    if st.session_state.stage == 'Solicitar':
+        
+        st.button('Volver', on_click= set_stage, args = ['Inicio'] )
+
+        st.title("Relene los datos de la Padreada")
+        Faltoso = st.selectbox("Faltoso:", st.session_state.lst_gente)
+        Víctima = st.selectbox("Víctima:", st.session_state.lst_gente)
+        Padreada = st.text_input("Padreada : ")
+        Puntos = st.selectbox('Puntos de la Padreada', [1,2,3,4,5])
+        Fecha = st.date_input('Fecha de la Padreada')
+        Solicitante = st.selectbox("Solicitante:", st.session_state.lst_gente)
+        
+        st.button('Solicitar', on_click = insert_padreada_buzon, args= [Fecha,
+                        Faltoso,
+                        Víctima,
+                        Padreada,
+                        Puntos,
+                        Solicitante,
+                        st.session_state.buzon_padreadas])
+
         
     if st.session_state.stage == 'Modificar_Padreada':
         
+        st.button('Volver', on_click= set_stage, args = ['Administrar Padreadas'] )
+
         st.dataframe(st.session_state.historico_padreadas,
                      use_container_width = True,
                      height = st.session_state.historico_padreadas.shape[0] * 37,
@@ -305,11 +365,12 @@ def main(ruta_csv,ruta_imagen_bg,ruta_imagen_sd):
                             st.session_state.historico_padreadas,
                             index])
 
-        st.button('Inicio', on_click= set_stage, args = ['Inicio'] )
             
 
     if st.session_state.stage == 'Eliminar_Padreada':
         
+        st.button('Volver', on_click= set_stage, args = ['Administrar Padreadas'] )
+
         st.dataframe(st.session_state.historico_padreadas,
                      use_container_width = True,
                      height = st.session_state.historico_padreadas.shape[0] * 37,
@@ -323,7 +384,6 @@ def main(ruta_csv,ruta_imagen_bg,ruta_imagen_sd):
                                                   max_value = st.session_state.historico_padreadas.shape[0] - 1)
         
         st.button('Eliminar', on_click= set_stage, args = ['Seguro_eliminar'])
-        st.button('Inicio', on_click = set_stage, args = ['Inicio'])
 
     if st.session_state.stage == 'Seguro_eliminar':
         
@@ -333,15 +393,30 @@ def main(ruta_csv,ruta_imagen_bg,ruta_imagen_sd):
         st.button('Si, seguro', on_click = delete_padreada, args = [st.session_state.historico_padreadas,
                                                                     st.session_state.index])
         
-        st.button('No, volver al inicio', on_click= set_stage, args = ['Inicio'])
+        st.button('No, volver', on_click= set_stage, args = ['Administrar Padreadas'] )
         
+    if st.session_state.stage == 'Aprobar_Padreadas':
         
+        st.button('Volver', on_click= set_stage, args = ['Administrar Padreadas'] )
+
+        # Mostrar el DataFrame
+        buzon_admin  = st.session_state.buzon_padreadas
+        buzon_admin['Aceptada ?'] = False
+        buzon_admin['Denegada ?'] = False
+
+        buzon_relleno = st.data_editor(buzon_admin,
+                       num_rows= "fixed", 
+                       hide_index = True)
+
+
+        st.button('Actualizar buzón', on_click= update_buzon, args = [buzon_relleno])
 
 if __name__ == "__main__":
     
     ruta_csv = 'Padreadas.csv'
+    ruta_buzon = 'Padreadas_buzon.csv'
     ruta_imagen_bg = 'image_op_2.jpg'
     ruta_imagen_sd = 'lebron.jpg'
 
 
-    main(ruta_csv,ruta_imagen_bg, ruta_imagen_sd)
+    main(ruta_csv,ruta_buzon,ruta_imagen_bg, ruta_imagen_sd)
