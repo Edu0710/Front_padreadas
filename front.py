@@ -148,7 +148,7 @@ def set_stage(stage):
     return 
 def set_stage_pass(stage, usuario, contraseña):
     
-    if usuario =='Notorious_aless99' and contraseña =='Tortuga_4':
+    if usuario =='Notorious_aless99' and contraseña ==st.secrets['Pass']:
     
     
         st.session_state.stage = stage
