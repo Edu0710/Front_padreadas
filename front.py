@@ -169,6 +169,12 @@ def update_buzon(buzon_relleno):
     st.success('Buzón actualizado con éxito')
     set_stage('Administrar Padreadas')
     return 
+
+def download_csv(dataframe, filename):
+    csv = dataframe.to_csv(index=False)
+    b64 = base64.b64encode(csv.encode()).decode()  # Codificar a base64
+    return b64
+
 def set_stage(stage):
     
     
@@ -177,7 +183,7 @@ def set_stage(stage):
     return 
 def set_stage_pass(stage, usuario, contraseña):
     
-    if usuario =='Notorious_aless99' and contraseña ==st.secrets['Pass']:
+    if usuario =='Notorious_aless99' and contraseña == st.secrets['Pass']:
     
         st.session_state.stage = stage
     else:
@@ -217,7 +223,7 @@ def main(ruta_csv,ruta_buzon,ruta_imagen_bg,ruta_imagen_sd):
     
         st.sidebar.header('¿Qué deseas hacer?')
         st.button('Ver histórico Padreadas', on_click = set_stage, args = ['Historico'])
-        st.button('Añadir Padreada al buzón', on_click = set_stage, args = ['Solicitar'])
+        st.button('Solicitar Padreada', on_click = set_stage, args = ['Solicitar'])
         st.button( '¡Administrar Padreadas!', on_click = set_stage, args = ['Password'])
     if 'stage' not in st.session_state:
         
@@ -253,7 +259,7 @@ def main(ruta_csv,ruta_buzon,ruta_imagen_bg,ruta_imagen_sd):
         
         usuario = st.text_input('Usuario :' , value = 'Notorious_aless99')
         contraseña = st.text_input('Contraseña :', type = 'password')
-        st.button('Acceder', on_click = set_stage_pass, args =['Administrar Padreadas', usuario,contraseña])
+        st.button('Continuar', on_click = set_stage_pass, args =['Administrar Padreadas', usuario,contraseña])
         st.button('Volver', on_click= set_stage, args = ['Inicio'] )
 
     if st.session_state.stage == 'Administrar Padreadas':
@@ -266,7 +272,20 @@ def main(ruta_csv,ruta_buzon,ruta_imagen_bg,ruta_imagen_sd):
         st.button( 'Modificar Padreada',     on_click= set_stage, args = ['Modificar_Padreada'])
         st.button( f'Buzón Padreadas ({st.session_state.buzon_padreadas.shape[0]})',
                   on_click= set_stage, args = ['Aprobar_Padreadas'])
+        
+        csv_data_1 = st.session_state.historico_padreadas.to_csv(index= False)
 
+        st.download_button( label = 'Descargar csv histórico',
+                  data = csv_data_1,
+                  file_name = 'Padreadas_histórico.csv',
+                  mime='text/csv')
+
+        csv_data_2 = st.session_state.buzon_padreadas.to_csv(index = False)
+
+        st.download_button( label = 'Descargar csv buzón',
+                  data = csv_data_2,
+                  file_name = 'Padreadas_buzon.csv')
+        
         st.button('Volver', on_click= set_stage, args = ['Inicio'] )
         
 
@@ -293,7 +312,7 @@ def main(ruta_csv,ruta_buzon,ruta_imagen_bg,ruta_imagen_sd):
         
         st.button('Volver', on_click= set_stage, args = ['Inicio'] )
 
-        st.title("Rellene los datos de la Padreada")
+        st.title("Relene los datos de la Padreada")
         Faltoso = st.selectbox("Faltoso:", st.session_state.lst_gente)
         Víctima = st.selectbox("Víctima:", st.session_state.lst_gente)
         Padreada = st.text_input("Padreada : ")
@@ -301,7 +320,7 @@ def main(ruta_csv,ruta_buzon,ruta_imagen_bg,ruta_imagen_sd):
         Fecha = st.date_input('Fecha de la Padreada')
         Solicitante = st.selectbox("Solicitante:", st.session_state.lst_gente)
         
-        st.button('Añadir Padreada', on_click = insert_padreada_buzon, args= [Fecha,
+        st.button('Solicitar', on_click = insert_padreada_buzon, args= [Fecha,
                         Faltoso,
                         Víctima,
                         Padreada,
