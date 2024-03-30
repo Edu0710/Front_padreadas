@@ -2,8 +2,6 @@ import streamlit as st
 import pandas as pd
 import time 
 import base64 
-pip install matplotlib
-import matplotlib.pyplot as plt
 
 @st.cache_data
 def get_base64_of_bin_file(file):
