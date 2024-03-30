@@ -320,7 +320,7 @@ def main(ruta_csv,ruta_buzon,ruta_imagen_bg,ruta_imagen_sd):
         Fecha = st.date_input('Fecha de la Padreada')
         Solicitante = st.selectbox("Solicitante:", st.session_state.lst_gente)
         
-        st.button('Añadir al buzón', on_click = insert_padreada_buzon, args= [Fecha,
+        st.button('Añadir Padreada', on_click = insert_padreada_buzon, args= [Fecha,
                         Faltoso,
                         Víctima,
                         Padreada,
