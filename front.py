@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import time 
 import base64 
+pip install matplotlib
 import matplotlib.pyplot as plt
 
 @st.cache_data
