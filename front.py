@@ -32,8 +32,6 @@ def set_png_as_page_bg(imagen_bg, imagen_sd):
     st.markdown(page_bg_img, unsafe_allow_html=True)
     return
 
-
-
 def insert_padreada(Fecha, Faltoso, Víctima, Padreada, Puntos, historico_padreadas):
     
     with st.spinner ( 'Insertando Padreada'):
