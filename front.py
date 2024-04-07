@@ -157,6 +157,7 @@ def sankey_plot(historico_padreadas):
     df = historico_padreadas[['Faltoso','Víctima','Puntos']]
     df = df.groupby(['Faltoso','Víctima']).sum()
     df.reset_index ( drop = False, inplace = True)
+    st.dataframe(df)
     df['Víctima'] = df['Víctima'] + '_2'
     nodes = list(set(df['Faltoso']).union(set(df['Víctima'])))
 
