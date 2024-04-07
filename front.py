@@ -2,10 +2,8 @@ import streamlit as st
 import pandas as pd
 import time 
 import base64 
-pip3 install plotly
 #import plotly.graph_objects as go
 
-#a
 @st.cache_data
 def get_base64_of_bin_file(file):
     
