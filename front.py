@@ -172,19 +172,21 @@ def sankey_plot(historico_padreadas):
 
     # Asignar un color único a cada nodo
     color_palette = [
-        'rgba(0, 0, 255, 0.5)',   # blue con 50% de transparencia
-        'rgba(255, 165, 0, 0.5)', # orange con 50% de transparencia
-        'rgba(0, 128, 0, 0.5)',   # green con 50% de transparencia
-        'rgba(255, 0, 0, 0.5)',   # red con 50% de transparencia
-        'rgba(128, 0, 128, 0.5)', # purple con 50% de transparencia
-        'rgba(255, 255, 0, 0.5)', # yellow con 50% de transparencia
-        'rgba(165, 42, 42, 0.5)', # brown con 50% de transparencia
-        'rgba(128, 128, 128, 0.5)',# gray con 50% de transparencia
-        'rgba(255, 0, 255, 0.5)',  # magenta con 50% de transparencia
-        'rgba(0, 255, 0, 0.5)',    # lime con 50% de transparencia
-        'rgba(255, 192, 203, 0.5)',# pink con 50% de transparencia
-        'rgba(0, 128, 128, 0.5)',  # teal con 50% de transparencia
-        'rgba(230, 230, 250, 0.5)' # lavender con 50% de transparencia
+        'rgba(0, 0, 255, 0.5)',    # Azul translúcido
+        'rgba(255, 165, 0, 0.5)',  # Naranja translúcido
+        'rgba(0, 128, 0, 0.5)',    # Verde translúcido
+        'rgba(255, 0, 0, 0.5)',    # Rojo translúcido
+        'rgba(128, 0, 128, 0.5)',  # Púrpura translúcido
+        'rgba(255, 255, 0, 0.5)',  # Amarillo translúcido
+        'rgba(165, 42, 42, 0.5)',  # Marrón translúcido
+        'rgba(128, 128, 128, 0.5)',# Gris translúcido
+        'rgba(255, 0, 255, 0.5)',  # Magenta translúcido
+        'rgba(0, 255, 0, 0.5)',    # Lima translúcido
+        'rgba(255, 192, 203, 0.5)',# Rosa translúcido
+        'rgba(0, 128, 128, 0.5)',  # Turquesa translúcido
+        'rgba(230, 230, 250, 0.5)',# Lavanda translúcido
+        'rgba(255, 69, 0, 0.5)',   # Naranja rojizo translúcido
+        'rgba(0, 255, 255, 0.5)'   # Cian translúcido
     ]
     # Iterar sobre cada nodo para asignar colores
     for node in nodes:
