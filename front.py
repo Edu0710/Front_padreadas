@@ -172,7 +172,7 @@ def sankey_plot(historico_padreadas):
     # Asignar un color único a cada nodo
     color_palette = [
         'blue', 'orange', 'green', 'red', 'purple', 'yellow',
-        'brown', 'cyan', 'magenta', 'lime', 'pink', 'teal',
+        'brown', 'gray', 'magenta', 'lime', 'pink', 'teal',
         'lavender']
     # Iterar sobre cada nodo para asignar colores
     for node in nodes:
