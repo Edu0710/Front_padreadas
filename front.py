@@ -202,7 +202,7 @@ def sankey_plot(historico_padreadas):
     ))
 
     # Actualizar diseño y título del gráfico
-    fig.update_layout(title_text="Gráfico Sankey de Relaciones",
+    fig.update_layout(title_text="Gráfico Sankey",
                       font=dict(size=12, color="black"))
 
     # Mostrar el gráfico utilizando Streamlit
