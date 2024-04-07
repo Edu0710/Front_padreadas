@@ -219,8 +219,7 @@ def sankey_plot(historico_padreadas):
                       font=dict(size=12, color="black"))
 
     # Mostrar el gráfico utilizando Streamlit
-    st.plotly_chart(fig)
-    
+    st.plotly_chart(fig, use_container_width=False)    
     return 
     
 def update_buzon(buzon_relleno):
