@@ -275,7 +275,7 @@ def main(ruta_csv,ruta_buzon,ruta_imagen_bg,ruta_imagen_sd):
 
         st.download_button( label = 'Descargar csv histórico',
                   data = csv_data_1,
-                  file_name = 'Padreadas_histórico.csv',
+                  file_name = 'Padreadas.csv',
                   mime='text/csv')
 
         csv_data_2 = st.session_state.buzon_padreadas.to_csv(index = False)
