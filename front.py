@@ -304,9 +304,9 @@ def main(ruta_csv,ruta_buzon,ruta_imagen_bg,ruta_imagen_sd):
         st.title("¡Bienvenidos a PADREADAS DISCORD!")
 
         show_top(st.session_state.historico_padreadas)
-        sankey_plot(st.session_state.historico_padreadas)
         hist_padres(st.session_state.historico_padreadas)
-        
+        sankey_plot(st.session_state.historico_padreadas)
+
     if st.session_state.stage == 'Historico':
         
         st.button('Volver', on_click = set_stage, args = ['Inicio'])
