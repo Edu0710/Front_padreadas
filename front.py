@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import time 
 import base64 
+import plotly.graph_objects as go
+
 #a
 @st.cache_data
 def get_base64_of_bin_file(file):
@@ -151,6 +153,66 @@ def hist_padres(historico_padreadas):
     st.bar_chart(padreadores, color = "#663399"  )
     
     return
+
+def sankey_plot(historico_padreadas):
+    df = historico_padreadas[['Faltoso','Víctima','Puntos']]
+    df = df.groupby(['Faltoso','Víctima']).sum()
+    df.reset_index ( drop = False, inplace = True)
+    df['Víctima'] = df['Víctima'] + '_2'
+    nodes = list(set(df['Faltoso']).union(set(df['Víctima'])))
+
+    # Crear un diccionario para asignar índices a cada nodo único
+    node_indices = {node: i for i, node in enumerate(nodes)}
+
+    # Crear listas para almacenar los índices de origen, destino y valores de los flujos
+    source_indices = []
+    target_indices = []
+    values = []
+    node_colors = []  # Lista para almacenar los colores de los nodos
+
+    # Asignar un color único a cada nodo
+    color_palette = [
+        'blue', 'orange', 'green', 'red', 'purple', 'yellow',
+        'brown', 'cyan', 'magenta', 'lime', 'pink', 'teal',
+        'lavender', 'gold'
+    ]
+
+    # Iterar sobre cada nodo para asignar colores
+    for node in nodes:
+        node_colors.append(color_palette[node_indices[node] % len(color_palette)])  # Asignar color a cada nodo
+
+    # Iterar sobre cada fila del DataFrame para obtener los flujos entre nodos
+    for _, row in df.iterrows():
+        source_indices.append(node_indices[row['Faltoso']])  # Índice del nodo padre
+        target_indices.append(node_indices[row['Víctima']])  # Índice del nodo hijo
+        values.append(row['Puntos'])  # Valor del flujo (puntos)
+
+    # Crear figura Sankey con Plotly
+    fig = go.Figure(go.Sankey(
+        node=dict(
+            pad=15,
+            thickness=20,
+            line=dict(color="black", width=0.5),
+            label=nodes,  # Etiquetas de los nodos
+            color=node_colors  # Colores de los nodos
+        ),
+        link=dict(
+            source=source_indices,
+            target=target_indices,
+            value=values,
+            color=[node_colors[idx] for idx in source_indices]  # Colores de las líneas entre nodos (mismo color del nodo de origen)
+        )
+    ))
+
+    # Actualizar diseño y título del gráfico
+    fig.update_layout(title_text="Gráfico Sankey de Relaciones",
+                      font=dict(size=12, color="black"))
+
+    # Mostrar el gráfico utilizando Streamlit
+    st.plotly_chart(fig)
+    
+    return 
+    
 def update_buzon(buzon_relleno):
     
     aux_cols = st.session_state.buzon_padreadas.columns
@@ -233,8 +295,8 @@ def main(ruta_csv,ruta_buzon,ruta_imagen_bg,ruta_imagen_sd):
         st.title("¡Bienvenidos a PADREADAS DISCORD!")
 
         show_top(st.session_state.historico_padreadas)
-        hist_padres(st.session_state.historico_padreadas)
-
+        # hist_padres(st.session_state.historico_padreadas)
+        sankey_plot(st.session_state.historico_padreadas)
         
     if st.session_state.stage == 'Historico':
         
