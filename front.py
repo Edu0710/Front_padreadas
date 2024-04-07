@@ -172,22 +172,22 @@ def sankey_plot(historico_padreadas):
 
     # Asignar un color único a cada nodo
     color_palette = [
-        'rgba(173, 216, 230, 0.5)',  # Azul claro translúcido
-        'rgba(255, 215, 0, 0.5)',    # Amarillo dorado translúcido
-        'rgba(144, 238, 144, 0.5)',  # Verde claro translúcido
-        'rgba(255, 182, 193, 0.5)',  # Rosa claro translúcido
-        'rgba(152, 251, 152, 0.5)',  # Verde pálido translúcido
-        'rgba(240, 128, 128, 0.5)',  # Rojo coral translúcido
-        'rgba(250, 235, 215, 0.5)',  # Blanco almendra translúcido
-        'rgba(255, 240, 245, 0.5)',  # Blanco rosado translúcido
-        'rgba(240, 255, 255, 0.5)',  # Blanco azulado translúcido
-        'rgba(240, 248, 255, 0.5)',  # Azul lavanda translúcido
-        'rgba(245, 245, 220, 0.5)',  # Amarillo almendra translúcido
-        'rgba(255, 250, 205, 0.5)',  # Amarillo lino translúcido
-        'rgba(255, 228, 196, 0.5)',  # Melocotón translúcido
-        'rgba(255, 222, 173, 0.5)',  # Arena translúcida
-        'rgba(240, 255, 240, 0.5)'   # Verde menta translúcido
-    ]
+    'rgba(0, 0, 139, 0.5)',    # Azul oscuro translúcido
+    'rgba(139, 69, 19, 0.5)',  # Marrón oscuro translúcido
+    'rgba(0, 100, 0, 0.5)',    # Verde oscuro translúcido
+    'rgba(139, 0, 139, 0.5)',  # Púrpura oscuro translúcido
+    'rgba(128, 0, 0, 0.5)',    # Rojo oscuro translúcido
+    'rgba(128, 128, 0, 0.5)',  # Verde oliva translúcido
+    'rgba(139, 0, 0, 0.5)',    # Rojo oscuro translúcido
+    'rgba(46, 139, 87, 0.5)',  # Verde mar translúcido
+    'rgba(72, 61, 139, 0.5)',  # Azul índigo translúcido
+    'rgba(160, 82, 45, 0.5)',  # Marrón rojizo translúcido
+    'rgba(128, 128, 128, 0.5)',# Gris oscuro translúcido
+    'rgba(47, 79, 79, 0.5)',   # Verde pizarra translúcido
+    'rgba(139, 0, 0, 0.5)',    # Rojo oscuro translúcido
+    'rgba(25, 25, 112, 0.5)',  # Azul medianoche translúcido
+    'rgba(139, 69, 19, 0.5)'   # Marrón oscuro translúcido
+]
     # Iterar sobre cada nodo para asignar colores
     for node in nodes:
         node_colors.append(color_palette[node_indices[node] % len(color_palette)])  # Asignar color a cada nodo
