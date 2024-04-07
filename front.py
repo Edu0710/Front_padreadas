@@ -216,7 +216,7 @@ def sankey_plot(historico_padreadas):
 
     # Actualizar diseño y título del gráfico
     fig.update_layout(title_text="Gráfico Sankey",
-                      title_x=0.4,
+                      title_x=0.45,
                       font=dict(size=12, color="black"),
                       width = 1400,
                       height = 600)
