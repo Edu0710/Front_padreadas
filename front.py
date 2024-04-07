@@ -172,9 +172,20 @@ def sankey_plot(historico_padreadas):
 
     # Asignar un color único a cada nodo
     color_palette = [
-        'blue', 'orange', 'green', 'red', 'purple', 'yellow',
-        'brown', 'gray', 'magenta', 'lime', 'pink', 'teal',
-        'lavender','cyan']
+        'rgba(0, 0, 255, 0.5)',   # blue con 50% de transparencia
+        'rgba(255, 165, 0, 0.5)', # orange con 50% de transparencia
+        'rgba(0, 128, 0, 0.5)',   # green con 50% de transparencia
+        'rgba(255, 0, 0, 0.5)',   # red con 50% de transparencia
+        'rgba(128, 0, 128, 0.5)', # purple con 50% de transparencia
+        'rgba(255, 255, 0, 0.5)', # yellow con 50% de transparencia
+        'rgba(165, 42, 42, 0.5)', # brown con 50% de transparencia
+        'rgba(128, 128, 128, 0.5)',# gray con 50% de transparencia
+        'rgba(255, 0, 255, 0.5)',  # magenta con 50% de transparencia
+        'rgba(0, 255, 0, 0.5)',    # lime con 50% de transparencia
+        'rgba(255, 192, 203, 0.5)',# pink con 50% de transparencia
+        'rgba(0, 128, 128, 0.5)',  # teal con 50% de transparencia
+        'rgba(230, 230, 250, 0.5)' # lavender con 50% de transparencia
+    ]
     # Iterar sobre cada nodo para asignar colores
     for node in nodes:
         node_colors.append(color_palette[node_indices[node] % len(color_palette)])  # Asignar color a cada nodo
