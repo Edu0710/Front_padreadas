@@ -1,0 +1,3 @@
+packaging==24.0
+plotly==5.20.0
+tenacity==8.2.3
