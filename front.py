@@ -171,9 +171,9 @@ def sankey_plot(historico_padreadas):
 
     # Asignar un color único a cada nodo
     color_palette = [
-    #'rgba(72, 61, 139, 0.7)',   # Azul índigo translúcido
+    'rgba(72, 61, 139, 0.7)',   # Azul índigo translúcido
+    #'rgba(128, 0, 0, 0.6)',     # Marrón rojizo translúcido
     'rgba(300, 300, 300, 0.7)',   # Azul índigo translúcido
-    'rgba(128, 0, 0, 0.6)',     # Marrón rojizo translúcido
     'rgba(128, 128, 128, 0.6)', # Gris oscuro translúcido
     'rgba(128, 128, 128, 0.6)', # Otro tono de gris oscuro translúcido
     'rgba(139, 0, 0, 0.6)',     # Rojo oscuro translúcido
