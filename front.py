@@ -217,7 +217,8 @@ def sankey_plot(historico_padreadas):
     # Actualizar diseño y título del gráfico
     fig.update_layout(title_text="Gráfico Sankey",
                       font=dict(size=12, color="black"),
-                    width = 1200)
+                      width = 1200,
+                      height = 800)
 
     # Mostrar el gráfico utilizando Streamlit
     st.plotly_chart(fig, use_container_width=False)    
@@ -305,7 +306,7 @@ def main(ruta_csv,ruta_buzon,ruta_imagen_bg,ruta_imagen_sd):
         st.title("¡Bienvenidos a PADREADAS DISCORD!")
 
         show_top(st.session_state.historico_padreadas)
-        hist_padres(st.session_state.historico_padreadas)
+        #hist_padres(st.session_state.historico_padreadas)
         sankey_plot(st.session_state.historico_padreadas)
 
     if st.session_state.stage == 'Historico':
