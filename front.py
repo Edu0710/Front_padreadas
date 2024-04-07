@@ -174,9 +174,9 @@ def sankey_plot(historico_padreadas):
     'rgba(72, 61, 139, 0.7)',  # Azul índigo translúcido
     'rgba(128, 0, 0, 0.6)',  # Marrón rojizo translúcido
     'rgba(128, 128, 128, 0.6)',# Gris oscuro translúcido
-    'rgba(128, 128, 128, 0.6)',   # Verde pizarra translúcido
+    'rgba(128, 128, 128, 0.6)',   
     'rgba(139, 0, 0, 0.6)',    # Rojo oscuro translúcido
-    'rgba(25, 25, 112, 0.6)',  # Azul medianoche translúcido
+    'rgba(128, 128, 0, 0.7)',  # Verde oliva translúcido
     'rgba(139, 0, 0, 0.6)',  # Marrón oscuro translúcido
     'rgba(72, 61, 139, 0.7)',    # Azul oscuro translúcido
     'rgba(139, 69, 19, 0.6)',  # Marrón oscuro translúcido
