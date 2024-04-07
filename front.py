@@ -230,7 +230,7 @@ def main(ruta_csv,ruta_buzon,ruta_imagen_bg,ruta_imagen_sd):
     if st.session_state.stage == 'Inicio': 
         
         # st.markdown("<h1 style='color:#4b0082;font-weight:bold;'>¡Bienvenid@s a PADREADAS DISCORD!</h1>", unsafe_allow_html=True)
-        st.title("¡Bienvenido a PADREADAS DISCORD!")
+        st.title("¡Bienvenidos a PADREADAS DISCORD!")
 
         show_top(st.session_state.historico_padreadas)
         hist_padres(st.session_state.historico_padreadas)
