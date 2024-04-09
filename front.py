@@ -185,7 +185,7 @@ def sankey_plot(historico_padreadas):
         'rgba(255, 192, 203, 0.6)', # Rosa translúcido
         'rgba(0, 128, 128, 0.6)',   # Verde azulado translúcido
         'rgba(255, 215, 0, 0.6)',   # Amarillo dorado translúcido
-        'rgba(218, 112, 214, 0.6)', # Orquídea translúcido
+        'rgba(255, 255, 255, 0.6)', # Orquídea translúcido
     ]
     # Iterar sobre cada nodo para asignar colores
     for node in nodes:
